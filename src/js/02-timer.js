@@ -4,6 +4,11 @@ import 'flatpickr/dist/flatpickr.min.css';
 import 'flatpickr/dist/themes/dark.css';
 import 'notiflix/dist/notiflix-3.2.5.min.css';
 
+Notiflix.Notify.init({
+  position: 'center-top',
+  clickToClose: true,
+});
+
 const refs = {
   btnStart: document.querySelector('[data-start]'),
   btnStop: document.querySelector('[data-stop]'),
@@ -24,7 +29,8 @@ const options = {
   onClose(selectedDates) {
     const dateValu = selectedDates[0].getTime();
     if (dateValu < Date.now()) {
-      window.alert('Please choose a date in the future');
+      Notiflix.Notify.failure('Please choose a date in the future');
+
       refs.btnStart.disabled = true;
     } else {
       refs.btnStart.disabled = false;
