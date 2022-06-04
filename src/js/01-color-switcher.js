@@ -4,7 +4,8 @@ const refs = {
   body: document.querySelector('body'),
 };
 
-refs.stopBtn.setAttribute('disabled', true);
+refs.stopBtn.disabled = true;
+refs.startBtn.disabled = false;
 
 const changeColorPalette = {
   intervalId: null,
@@ -14,14 +15,14 @@ const changeColorPalette = {
       getRandomHexColor();
     }, 1000);
 
-    refs.startBtn.setAttribute('disabled', true);
-    refs.stopBtn.removeAttribute('disabled');
+    refs.startBtn.disabled = true;
+    refs.stopBtn.disabled = false;
   },
 
   stop() {
     clearInterval(this.intervalId);
-    refs.startBtn.removeAttribute('disabled');
-    refs.stopBtn.setAttribute('disabled', true);
+    refs.startBtn.disabled = false;
+    refs.stopBtn.disabled = true;
   },
 };
 
