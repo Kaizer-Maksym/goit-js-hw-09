@@ -27,8 +27,8 @@ const options = {
   defaultDate: new Date(),
   minuteIncrement: 1,
   onClose(selectedDates) {
-    const dateValu = selectedDates[0].getTime();
-    if (dateValu < Date.now()) {
+    const dateValue = selectedDates[0].getTime();
+    if (dateValue < Date.now()) {
       Notify.failure('Please choose a date in the future');
 
       refs.btnStart.disabled = true;
@@ -39,6 +39,7 @@ const options = {
 };
 
 flatpickr('#datetime-picker', options);
+
 refs.btnStart.disabled = true;
 
 class Timer {
@@ -53,10 +54,18 @@ class Timer {
     }
 
     const startTime = new Date(refs.input.value);
+
     this.isActive = true;
+
     this.intervalId = setInterval(() => {
       const currentTime = Date.now();
       const deltaTime = startTime - currentTime;
+
+      if (deltaTime <= 0) {
+        clearInterval(this.intervalId);
+        return;
+      }
+
       const countdown = this.convertMs(deltaTime);
       this.onTick(countdown);
     }, 1000);
